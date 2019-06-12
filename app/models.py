@@ -1,8 +1,7 @@
 import base64
 import jwt
-from datetime import datetime
-from hashlib import md5
-from app import db
+from datetime import datetime, timedelta
+from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import os
@@ -20,6 +19,29 @@ class PresenceStatus(enum.Enum):
     craving_communication = 4
 
 
+class UserPOV(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+    note = db.Column(db.String(1024))
+    mute_until = db.Column(db.DateTime, default=(datetime.utcnow() + timedelta(weeks=52)))
+    mark = db.Column(db.String)
+    frequency = db.Column(db.Integer) # minimum interval between push notifications. seconds
+    pov_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    original_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def to_dict(self):
+        data = {
+            'id': self.id.name,
+            'name': self.name,
+            'note': self.note,
+            'mute_until': self.mute_until.isoformat() + "Z",
+            'mark': self.mark,
+            'frequency': self.frequency,
+            'contact': self.original.to_dict()
+        }
+        return data
+
+
 class DeliveryStatus(enum.Enum):
     sent = 1
     received = 2
@@ -28,20 +50,27 @@ class DeliveryStatus(enum.Enum):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(16), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
+    username = db.Column(db.String(16), index=True, unique=True, nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     last_online = db.Column(db.DateTime, default=datetime.utcnow())
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-
-    name = db.Column(db.String(64))
-    status = db.Column(db.String(1024))
+    name = db.Column(db.String(64), index=True)
+    bio = db.Column(db.String(1024))
     picture = db.Column(db.String(256)) # todo: find out how to store pictures
     presence_status = db.Column(db.Enum(PresenceStatus))
     in_foreground = db.Column(db.Boolean)
     shutdown_on_screen_of = db.Column(db.Boolean)
 
+    originals = db.relationship('UserPOV', foreign_keys='UserPOV.original_id', backref='original', lazy='dynamic')
+    povs = db.relationship('UserPOV', foreign_keys='UserPOV.pov_id', backref='pov', lazy='dynamic')
+    messages_sent = db.relationship('Message',
+                                    foreign_keys='Message.sender_id',
+                                    backref='sender', lazy='dynamic')
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.recipient_id',
+                                        backref='recipient', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -71,21 +100,62 @@ class User(UserMixin, db.Model):
         data = {
             'id': self.id,
             'username': self.username,
+            'name': self.name,
+            'bio': self.bio,
+            'picture': self.picture,
             'last_online': self.last_online.isoformat() + 'Z',
-
+            'status': self.presence_status,
+            'shutdown_on_screen_of': self.shutdown_on_screen_of
         }
+        if include_email:
+            data['email'] = self.email
+        return data
+
+    def from_dict(self, data, new_user=False):
+        for field in ['username', 'email', 'name', 'bio']:
+            if field in data:
+                setattr(self, field, data[field])
+        if new_user and 'password' in data:
+            self.set_password(data['password'])
+
+    def get_token(self, expires_in=3600):
+        now = datetime.utcnow()
+        if self.token and self.token_expiration > now + timedelta(seconds=60):
+            return self.token
+        self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
+        self.token_expiration = now + timedelta(seconds=expires_in)
+        db.session.add(self) # todo: make sure session is commited
+        return self.token
+
+    def revoke_token(self):
+        self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
+
+    @staticmethod
+    def check_token(token):
+        user = User.query.filter_by(token=token).first()
+        if user is None or user.token_expiration < datetime.utcnow():
+            return None
+        return user
 
 
+@login.user_loader # not sure it's needed when writing API
+def load_user(id):
+    return User.query.get(int(id))
 
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(1024), nullable=False, default="")
+    time = db.Column(db.DateTime, default=datetime.utcnow())
+    edited = db.Column(db.Boolean, default=False)
+    deleted_for_author = db.Column(db.Boolean, default=False)
+    deleted_for_recipient = db.Column(db.Boolean, default=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    delivery_status = db.Column(db.Enum(DeliveryStatus), default=DeliveryStatus.sent)
 
-
-
-
-
-
-
-
+    def __repr__(self):
+        return '<Message {}>'.format(self.text)
 
 
 
