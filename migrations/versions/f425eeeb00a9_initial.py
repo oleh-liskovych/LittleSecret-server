@@ -1,8 +1,8 @@
-"""initial setup. User, UserPOV, Message
+"""initial
 
-Revision ID: aeea42d7f7ff
+Revision ID: f425eeeb00a9
 Revises: 
-Create Date: 2019-06-12 15:37:29.229970
+Create Date: 2019-06-16 15:40:16.412105
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'aeea42d7f7ff'
+revision = 'f425eeeb00a9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,12 +26,12 @@ def upgrade():
     sa.Column('last_online', sa.DateTime(), nullable=True),
     sa.Column('token', sa.String(length=32), nullable=True),
     sa.Column('token_expiration', sa.DateTime(), nullable=True),
-    sa.Column('name', sa.String(length=64), nullable=True),
-    sa.Column('bio', sa.String(length=1024), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=False),
+    sa.Column('bio', sa.String(length=1024), nullable=False),
     sa.Column('picture', sa.String(length=256), nullable=True),
     sa.Column('presence_status', sa.Enum('unknown', 'available', 'offline', 'do_not_disturb', 'craving_communication', name='presencestatus'), nullable=True),
-    sa.Column('in_foreground', sa.Boolean(), nullable=True),
-    sa.Column('shutdown_on_screen_of', sa.Boolean(), nullable=True),
+    sa.Column('in_foreground', sa.Boolean(), nullable=False),
+    sa.Column('shutdown_on_screen_of', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
@@ -47,18 +47,18 @@ def upgrade():
     sa.Column('deleted_for_recipient', sa.Boolean(), nullable=True),
     sa.Column('sender_id', sa.Integer(), nullable=True),
     sa.Column('recipient_id', sa.Integer(), nullable=True),
-    sa.Column('delivery_status', sa.Enum('sent', 'received', 'read', name='deliverystatus'), nullable=True),
+    sa.Column('delivery_status', sa.Enum('sent', 'received', 'seen', name='deliverystatus'), nullable=True),
     sa.ForeignKeyConstraint(['recipient_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('userPOV',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=64), nullable=True),
-    sa.Column('note', sa.String(length=1024), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=False),
+    sa.Column('note', sa.String(length=1024), nullable=False),
     sa.Column('mute_until', sa.DateTime(), nullable=True),
-    sa.Column('mark', sa.String(), nullable=True),
-    sa.Column('frequency', sa.Integer(), nullable=True),
+    sa.Column('mark', sa.String(), nullable=False),
+    sa.Column('frequency', sa.Integer(), nullable=False),
     sa.Column('pov_id', sa.Integer(), nullable=True),
     sa.Column('original_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['original_id'], ['user.id'], ),

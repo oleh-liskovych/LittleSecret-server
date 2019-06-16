@@ -45,11 +45,11 @@ class PaginatedAPIMixin(object):
 
 class UserPOV(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True)
-    note = db.Column(db.String(1024))
+    name = db.Column(db.String(64), index=True, nullable=False, default="")
+    note = db.Column(db.String(1024), nullable=False, default="")
     mute_until = db.Column(db.DateTime, default=(datetime.utcnow() + timedelta(weeks=52)))
-    mark = db.Column(db.String)
-    frequency = db.Column(db.Integer) # minimum interval between push notifications. seconds
+    mark = db.Column(db.String, nullable=False, default="")
+    frequency = db.Column(db.Integer, nullable=False, default=0) # minimum interval between push notifications. seconds
     pov_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     original_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -80,12 +80,12 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     last_online = db.Column(db.DateTime, default=datetime.utcnow())
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-    name = db.Column(db.String(64), index=True)
-    bio = db.Column(db.String(1024))
+    name = db.Column(db.String(64), index=True, nullable=False, default="")
+    bio = db.Column(db.String(1024), nullable=False, default="")
     picture = db.Column(db.String(256)) # todo: find out how to store pictures
-    presence_status = db.Column(db.Enum(PresenceStatus))
-    in_foreground = db.Column(db.Boolean)
-    shutdown_on_screen_of = db.Column(db.Boolean)
+    presence_status = db.Column(db.Enum(PresenceStatus), default=PresenceStatus.unknown)
+    in_foreground = db.Column(db.Boolean, nullable=False, default=False)
+    shutdown_on_screen_of = db.Column(db.Boolean, nullable=False, default=False)
 
     originals = db.relationship('UserPOV', foreign_keys='UserPOV.original_id', backref='original', lazy='dynamic')
     povs = db.relationship('UserPOV', foreign_keys='UserPOV.pov_id', backref='pov', lazy='dynamic')
@@ -97,7 +97,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
                                         backref='recipient', lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}, presence_status: {}>'.format(self.username, self.presence_status)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -128,7 +128,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             'bio': self.bio,
             'picture': self.picture,
             'last_online': self.last_online.isoformat() + 'Z',
-            'status': self.presence_status,
+            'status': self.presence_status.name,
             'shutdown_on_screen_of': self.shutdown_on_screen_of
         }
         if include_email:
