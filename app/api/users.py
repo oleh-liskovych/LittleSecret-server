@@ -15,7 +15,10 @@ def get_user(username):
 @bp.route('/users', methods=['GET'])
 @token_auth.login_required
 def get_users():
-    pass
+    page = request.args.get('page', 1, type=int)
+    per_page = min(request.args.get('per_page', 10, type=int), 100)
+    data = User.to_collection_dict(User.query, page, per_page, 'api.get_users')
+    return jsonify(data)
 
 
 @bp.route('/users', methods=['POST'])
@@ -33,7 +36,7 @@ def create_user():
     db.session.commit()
     response = jsonify(user.to_dict())
     response.status_code = 201
-    response.headers['Location'] = url_for('api.get_user', id=user.id)
+    response.headers['Location'] = url_for('api.get_user', username=user.username)
     return response
 
 

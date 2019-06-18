@@ -23,9 +23,6 @@ def create_app(config_class=Config):
     babel.init_app(app)
     login.init_app(app)
 
-    from app.auth import bp as auth_bp
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
 
@@ -50,5 +47,4 @@ def get_locale():
 
 
 from app import models
-from app.auth import routes
 

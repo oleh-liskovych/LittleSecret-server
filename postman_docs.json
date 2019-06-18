@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "8282929c-40ad-42e0-96b7-e8a45fbd506e",
+		"name": "Little Secret",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"dmytro\", \"email\":\"dmytro@gmail.com\", \"password\":\"1111\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "## Create user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n\n# Failure:\n\n# 404:\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n\n## 500 \n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+					},
+					"response": [
+						{
+							"name": "Create user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "oleh",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "dannogo@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "okon4anii",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "INTERNAL SERVER ERROR",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/0.15.4 Python/3.7.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 16 Jun 2019 21:14:44 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+						}
+					]
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bio\":\"It's my fourth bio\",\"email\":\"oleh@ukr.net\", \"password\":\"1111\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/oleh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"oleh"
+							]
+						},
+						"description": "## Update user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/oleh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"oleh"
+							]
+						},
+						"description": "## Get user by username:\n# Response \n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 1,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"john\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure 404:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Not Found\"  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "{  \n    \"items\": [  \n        {  \n            \"id\": 1,  \n            \"username\": \"john\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 2,  \n            \"username\": \"susan\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 3,  \n            \"username\": \"petro\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 4,  \n            \"username\": \"oleh\",  \n            \"name\": \"\",  \n            \"bio\": \"It's my fourth bio\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 5,  \n            \"username\": \"vasyl\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-18T14:10:49.460416Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 6,  \n            \"username\": \"dmytro\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-18T14:18:01.897751Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        }  \n    ],  \n    \"_meta\": {  \n        \"page\": 1,  \n        \"per_page\": 10,  \n        \"total_pages\": 1,  \n        \"total_items\": 6  \n    },  \n    \"_links\": {  \n        \"self\": \"/api/users?page=1&per_page=10\",  \n        \"next\": null,  \n        \"prev\": null  \n    }  \n}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Get token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic b2xlaDpva29uNGFuaWk=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tokens",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens"
+							]
+						},
+						"description": "## Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"token\": \"BgQO3UZfBZf02tAElaa/76640PzNZJVh\"  \n}\n\n# Failure:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Unauthorized\"  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke token",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tokens",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens"
+							]
+						},
+						"description": "## Response:\n# Success:\n\"\"\n# Failure:\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
