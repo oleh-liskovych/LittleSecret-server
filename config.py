@@ -14,3 +14,5 @@ class Config(object):
     JSON_SORT_KEYS = False
 
     LANGUAGES = ['en', 'uk', 'ru']
+
+    UPLOADS = "/Users/OlehLiskovych/Documents/STUDY/LittleSecret/static/uploads"

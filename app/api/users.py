@@ -1,9 +1,10 @@
-from flask import jsonify, request, url_for, g, abort
+from flask import jsonify, request, make_response, url_for, g, abort, current_app
 from app import db
 from app.api import bp
 from app.api.errors import bad_request
 from app.models import User
 from app.api.auth import token_auth
+import os
 
 
 @bp.route('/users/<string:username>', methods=['GET'])
@@ -53,3 +54,15 @@ def update_user(username):
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
+
+
+@bp.route('/users/upload', methods=['POST'])
+def test_upload():
+    name = request.form.get("name")
+    image = request.files["image"]
+    print(image)
+    image.save(os.path.join(current_app.config['UPLOADS'], image.filename))
+    print("Image saved")
+    response = make_response(str(name) + " loh", 200)
+    response.mimetype = "text/plain"
+    return response
