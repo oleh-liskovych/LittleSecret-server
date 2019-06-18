@@ -97,7 +97,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
                                         backref='recipient', lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}, presence_status: {}>'.format(self.username, self.presence_status)
+        return '<User {}, email: {}, bio: {}>'.format(self.username, self.email, self.bio)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -148,7 +148,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             return self.token
         self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
         self.token_expiration = now + timedelta(seconds=expires_in)
-        db.session.add(self) # todo: make sure session is commited
+        db.session.add(self)
         return self.token
 
     def revoke_token(self):
