@@ -16,3 +16,4 @@ class Config(object):
     LANGUAGES = ['en', 'uk', 'ru']
 
     UPLOADS = "/Users/OlehLiskovych/Documents/STUDY/LittleSecret/static/uploads"
+    STATIC = "/Users/OlehLiskovych/Documents/STUDY/LittleSecret/static"
