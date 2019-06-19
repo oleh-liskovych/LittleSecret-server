@@ -15,14 +15,45 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "application/json",
+								"key": "Authorization",
+								"value": "Bearer nB/dlZJfA0AkJDRShZ6XwgzvIuoR5q7C",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"username\":\"dmytro\", \"email\":\"dmytro@gmail.com\", \"password\":\"1111\"}"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "test5",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Test Name5",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test5@ukr.net",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "test bio",
+									"type": "text"
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": ""
+								}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:5000/api/users",
@@ -36,78 +67,9 @@
 								"users"
 							]
 						},
-						"description": "## Create user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n\n# Failure:\n\n# 404:\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n\n## 500 \n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+						"description": "## Response:\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 9,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"test3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Test Name3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"test bio\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/images/dog_4.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-19T16:30:21.076969Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure:\n# 404\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}"
 					},
-					"response": [
-						{
-							"name": "Create user",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "username",
-											"value": "oleh",
-											"type": "text"
-										},
-										{
-											"key": "email",
-											"value": "dannogo@gmail.com",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "okon4anii",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:5000/api/users",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "5000",
-									"path": [
-										"api",
-										"users"
-									]
-								}
-							},
-							"status": "INTERNAL SERVER ERROR",
-							"code": 500,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html"
-								},
-								{
-									"key": "Content-Length",
-									"value": "290"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/0.15.4 Python/3.7.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 16 Jun 2019 21:14:44 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update user",
@@ -115,19 +77,35 @@
 						"method": "PUT",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
 								"key": "Authorization",
-								"value": "Bearer LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"value": "Bearer nB/dlZJfA0AkJDRShZ6XwgzvIuoR5q7C",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"bio\":\"It's my fourth bio\",\"email\":\"oleh@ukr.net\", \"password\":\"1111\"}"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Jonattan Cormen",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "Multipart 5",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "another@ukr.net",
+									"type": "text"
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": ""
+								}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:5000/api/users/oleh",
@@ -142,7 +120,7 @@
 								"oleh"
 							]
 						},
-						"description": "## Update user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}"
+						"description": "## Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Jonattan Cormen\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"Multipart 4\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/api/images/dog_4.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}"
 					},
 					"response": []
 				},
@@ -153,7 +131,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"value": "Bearer 5LQfUjV4k08zF9zkmScqvXhEqvPeTNL/",
 								"type": "text"
 							},
 							{
@@ -193,7 +171,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"value": "Bearer  j46tyXEXIves9Wm3oGxcHnPISojjKmdd",
 								"type": "text"
 							},
 							{
@@ -271,7 +249,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer  LlBCTSsZoeAojmGwInDuv7UE+r/SJKWt",
+								"value": "Bearer  j46tyXEXIves9Wm3oGxcHnPISojjKmdd",
 								"type": "text"
 							}
 						],
@@ -292,6 +270,186 @@
 							]
 						},
 						"description": "## Response:\n# Success:\n\"\"\n# Failure:\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deprecated",
+			"item": [
+				{
+					"name": "Test Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Vasya",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user deprecated",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"pavlo\", \"email\":\"pavlo@gmail.com\", \"password\":\"1111\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/deprecated",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"deprecated"
+							]
+						},
+						"description": "## Create user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n\n# Failure:\n\n# 404:\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n\n## 500 \n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+					},
+					"response": [
+						{
+							"name": "Create user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "oleh",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "dannogo@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "okon4anii",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "INTERNAL SERVER ERROR",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/0.15.4 Python/3.7.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 16 Jun 2019 21:14:44 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+						}
+					]
+				},
+				{
+					"name": "Update user deprecated",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 5LQfUjV4k08zF9zkmScqvXhEqvPeTNL/",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bio\":\"It's my fourth bio\",\"email\":\"oleh@ukr.net\", \"password\":\"1111\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/oleh/deprecated",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"oleh",
+								"deprecated"
+							]
+						},
+						"description": "## Update user\n# Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": null,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure:\n# 403\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>403 Forbidden</title>\n<h1>Forbidden</h1>\n<p>You don't have the permission to access the requested resource. It is either read-protected or not readable by the server.</p>"
 					},
 					"response": []
 				}
