@@ -9,9 +9,9 @@ def wants_json_response():
            request.accept_mimetypes['text/html']
 
 
-@bp.app_errorhandler(404)
-def not_found_error(error):
-    api_error_response(404)
+# @bp.app_errorhandler(404)
+# def not_found_error(error):
+#     api_error_response(404)
     # if wants_json_response():
     #     return api_error_response(404)
     # return render_template('errors/404.html'), 404
@@ -24,3 +24,6 @@ def internal_error(error):
     # if wants_json_response():
     #     return api_error_response(500)
     # return render_template('error/500.html'), 500
+
+
+# todo: add error handler for 403 and 401 statuses

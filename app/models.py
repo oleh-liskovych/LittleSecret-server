@@ -82,7 +82,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     token_expiration = db.Column(db.DateTime)
     name = db.Column(db.String(64), index=True, nullable=False, default="")
     bio = db.Column(db.String(1024), nullable=False, default="")
-    picture = db.Column(db.String(256)) # todo: find out how to store pictures
+    picture = db.Column(db.String(256))
     presence_status = db.Column(db.Enum(PresenceStatus), default=PresenceStatus.unknown)
     in_foreground = db.Column(db.Boolean, nullable=False, default=False)
     shutdown_on_screen_of = db.Column(db.Boolean, nullable=False, default=False)
@@ -136,7 +136,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return data
 
     def from_dict(self, data, new_user=False):
-        for field in ['username', 'email', 'name', 'bio']:
+        for field in ['username', 'email', 'name', 'bio', 'picture']:
             if field in data:
                 setattr(self, field, data[field])
         if new_user and 'password' in data:
