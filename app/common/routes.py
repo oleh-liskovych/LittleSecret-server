@@ -1,4 +1,4 @@
-from flask import current_app, send_from_directory
+from flask import current_app, send_from_directory, render_template
 from app.common import bp
 
 
@@ -11,3 +11,8 @@ def favicon():
 @bp.route('/images/<path:filename>')
 def send_file(filename):
     return send_from_directory(current_app.config['UPLOADS'], filename)
+
+
+@bp.route('/')
+def index():
+    return render_template('index.html', async_mode=None)

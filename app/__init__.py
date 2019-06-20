@@ -6,12 +6,15 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_babel import Babel, lazy_gettext as _l
+from flask_socketio import SocketIO
 import os
+
 
 db = SQLAlchemy()
 migrate = Migrate()
 babel = Babel()
 login = LoginManager()
+socketio = SocketIO()
 
 
 def create_app(config_class=Config):
@@ -22,6 +25,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     babel.init_app(app)
     login.init_app(app)
+    socketio.init_app(app, async_mode=None)
 
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
@@ -41,6 +45,7 @@ def create_app(config_class=Config):
             file_handler.setLevel(logging.INFO)
             app.logger.info('LittleSecret')
 
+    # socketio.run(app, debug=True)
     return app
 
 
@@ -50,4 +55,8 @@ def get_locale():
 
 
 from app import models
+
+if __name__ == '__main__':
+    print("if __name__ == '__main__':")
+    socketio.run(current_app, debug=True)
 
