@@ -36,10 +36,10 @@
             // round trip time is measured.
             var ping_pong_times = [];
             var start_time;
-            window.setInterval(function() {
-                start_time = (new Date).getTime();
-                socket.emit('my_ping');
-            }, 1000);
+            {#window.setInterval(function() {#}
+            {#    start_time = (new Date).getTime();#}
+            {#    socket.emit('my_ping');#}
+            {#/}, 1000);#}
             // Handler for the "pong" message. When the pong is received, the
             // time from the ping is stored, and the average of the last 30
             // samples is average and displayed.

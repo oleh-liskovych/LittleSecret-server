@@ -27,12 +27,11 @@ def get_users():
 @bp.route('/users', methods=['POST'])
 def create_user():
     data = request.form.to_dict() or {}
-    if 'username' not in data or 'email' not in data or 'password' not in data:
-        return bad_request('Must include username, email and password fields')
-    if User.query.filter_by(username=data['username']).first():
-        return bad_request('Please use a different username')
-    if User.query.filter_by(email=data['email']).first():
-        return bad_request('Please use a different email address')
+
+    error_data = validate_create_user_form(data)
+    if bool(error_data):
+        return bad_request(error_data)
+
     if 'picture' in request.files:
         picture = request.files["picture"]
         if picture and allowed_file(picture.filename):
@@ -50,6 +49,24 @@ def create_user():
     return response
 
 
+def validate_create_user_form(data):
+    """Returns dictionary of errors"""
+    error_data = {}
+    if 'username' not in data or not data['username'].strip():
+        error_data['username'] = 'Username is required'
+    if 'email' not in data or not data['email'].strip():
+        error_data['email'] = 'Email is required'
+    if 'password' not in data or not data['password']:
+        error_data['password'] = 'Password is required'
+
+    if 'username' not in error_data and User.query.filter_by(username=data['username'].strip()).first():
+        error_data['username'] = 'Please use a different username'
+    if 'email' not in error_data and User.query.filter_by(email=data['email'].strip()).first():
+        error_data['email'] = 'Please use a different email address'
+
+    return error_data
+
+
 @bp.route('/users/<string:username>', methods=['PUT'])
 @token_auth.login_required
 def update_user(username):
@@ -57,9 +74,15 @@ def update_user(username):
         abort(403)
     user = User.query.filter_by(username=username).first_or_404()
     data = request.form.to_dict() or {}
-    if 'email' in data and data['email'] != user.email and \
-            User.query.filter_by(email=data['email']).first():
-        return bad_request('Please use different email address')
+
+    error_data = validate_update_user_form(data, user)
+    if bool(error_data):
+        return bad_request(error_data)
+
+    # if 'email' in data and data['email'] != user.email and \
+    #         User.query.filter_by(email=data['email']).first():
+    #     return bad_request('Please use different email address')
+
     if 'picture' in request.files:
         picture = request.files["picture"]
         if picture and allowed_file(picture.filename):
@@ -70,3 +93,15 @@ def update_user(username):
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
+
+
+def validate_update_user_form(data, user):
+    """Returns dictionary of errors"""
+    error_data = {}
+    if 'email' in data and \
+            data['email'].strip() and \
+            data['email'].strip() != user.email and \
+            User.query.filter_by(email=data['email'].strip()).first():
+        error_data['email'] = 'Please use a different email address'
+
+    return error_data
