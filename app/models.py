@@ -82,7 +82,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     token_expiration = db.Column(db.DateTime)
     name = db.Column(db.String(64), index=True, nullable=False, default="")
     bio = db.Column(db.String(1024), nullable=False, default="")
-    picture = db.Column(db.String(256))
+    picture = db.Column(db.String(512))
     presence_status = db.Column(db.Enum(PresenceStatus), default=PresenceStatus.unknown)
     in_foreground = db.Column(db.Boolean, nullable=False, default=False)
     shutdown_on_screen_of = db.Column(db.Boolean, nullable=False, default=False)
@@ -98,6 +98,10 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}, email: {}, bio: {}>'.format(self.username, self.email, self.bio)
+
+    def delete_picture(self):
+        self.picture = None
+        db.session.add(self)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -129,7 +133,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             'picture': self.picture,
             'last_online': self.last_online.isoformat() + 'Z',
             'status': self.presence_status.name,
-            'shutdown_on_screen_of': self.shutdown_on_screen_of
+            'shutdown_on_screen_off': self.shutdown_on_screen_of
         }
         if include_email:
             data['email'] = self.email
@@ -165,6 +169,15 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 @login.user_loader # not sure it's needed when writing API
 def load_user(id):
     return User.query.get(int(id))
+
+
+class AbandonedPicture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String(512), nullable=False)
+    owner = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '<AbandonedPicture owner_id {}, path {}>'.format(self.owner, self.path)
 
 
 class Message(db.Model):

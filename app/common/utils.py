@@ -1,5 +1,8 @@
 import warnings
 import functools
+from pathlib import PurePosixPath
+from datetime import datetime
+import uuid
 
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -23,3 +26,9 @@ def deprecated(func):
         warnings.simplefilter('default', DeprecationWarning)  # reset filter
         return func(*args, **kwargs)
     return new_func
+
+
+def unique_filename_from(filename):
+    suffix = PurePosixPath(filename).suffix
+    unique_filename = str(int(datetime.utcnow().timestamp())) + "_" + uuid.uuid4().hex + suffix
+    return unique_filename

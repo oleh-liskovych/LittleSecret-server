@@ -1,11 +1,10 @@
 from flask import jsonify, request, url_for, g, abort, current_app
 from app import db
-from app.common.utils import allowed_file
+from app.common.utils import allowed_file, unique_filename_from
 from app.api import bp
 from app.api.errors import bad_request
-from app.models import User
+from app.models import User, AbandonedPicture
 from app.api.auth import token_auth
-from werkzeug.utils import secure_filename
 import os
 
 
@@ -35,7 +34,7 @@ def create_user():
     if 'picture' in request.files:
         picture = request.files["picture"]
         if picture and allowed_file(picture.filename):
-            filename = secure_filename(picture.filename)
+            filename = unique_filename_from(picture.filename)
             path = os.path.join(current_app.config['UPLOADS'], filename)
             picture.save(path)
             data['picture'] = url_for('common.send_file', filename=filename, _external=True)
@@ -79,20 +78,35 @@ def update_user(username):
     if bool(error_data):
         return bad_request(error_data)
 
-    # if 'email' in data and data['email'] != user.email and \
-    #         User.query.filter_by(email=data['email']).first():
-    #     return bad_request('Please use different email address')
-
     if 'picture' in request.files:
         picture = request.files["picture"]
         if picture and allowed_file(picture.filename):
-            filename = secure_filename(picture.filename)
+            filename = unique_filename_from(picture.filename)
             path = os.path.join(current_app.config['UPLOADS'], filename)
             picture.save(path)
             data['picture'] = url_for('common.send_file', filename=filename, _external=True)
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
+
+
+@bp.route('/users/picture', methods=['DELETE'])
+@token_auth.login_required
+def delete_profile_picture():
+    print("loh")
+    if g.current_user.picture:
+        abandoned_name = "abandoned_" + unique_filename_from(g.current_user.picture)
+        print("abandoned_name {}".format(abandoned_name))
+        from_path = os.path.join(current_app.config['UPLOADS'], os.path.basename(g.current_user.picture))
+        to_path = os.path.join(current_app.config['UPLOADS'], abandoned_name)
+        os.rename(from_path, to_path)
+
+        # abandoned = AbandonedPicture(path=abandoned_name, owner=g.current_user.id)
+        # g.current_user.delete_picture()
+        # db.session.add(abandoned)
+        # db.session.commit()
+
+    return '', 204
 
 
 def validate_update_user_form(data, user):
