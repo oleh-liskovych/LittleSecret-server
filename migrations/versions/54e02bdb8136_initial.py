@@ -1,8 +1,8 @@
-"""initial
+"""Initial
 
-Revision ID: f425eeeb00a9
+Revision ID: 54e02bdb8136
 Revises: 
-Create Date: 2019-06-16 15:40:16.412105
+Create Date: 2019-06-22 23:55:09.921885
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f425eeeb00a9'
+revision = '54e02bdb8136'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,16 +28,23 @@ def upgrade():
     sa.Column('token_expiration', sa.DateTime(), nullable=True),
     sa.Column('name', sa.String(length=64), nullable=False),
     sa.Column('bio', sa.String(length=1024), nullable=False),
-    sa.Column('picture', sa.String(length=256), nullable=True),
+    sa.Column('picture', sa.String(length=512), nullable=True),
     sa.Column('presence_status', sa.Enum('unknown', 'available', 'offline', 'do_not_disturb', 'craving_communication', name='presencestatus'), nullable=True),
     sa.Column('in_foreground', sa.Boolean(), nullable=False),
-    sa.Column('shutdown_on_screen_of', sa.Boolean(), nullable=False),
+    sa.Column('shutdown_on_screen_off', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
     op.create_index(op.f('ix_user_name'), 'user', ['name'], unique=False)
     op.create_index(op.f('ix_user_token'), 'user', ['token'], unique=True)
     op.create_index(op.f('ix_user_username'), 'user', ['username'], unique=True)
+    op.create_table('abandoned_picture',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('path', sa.String(length=512), nullable=True),
+    sa.Column('owner', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['owner'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('message',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('text', sa.String(length=1024), nullable=False),
@@ -74,6 +81,7 @@ def downgrade():
     op.drop_index(op.f('ix_userPOV_name'), table_name='userPOV')
     op.drop_table('userPOV')
     op.drop_table('message')
+    op.drop_table('abandoned_picture')
     op.drop_index(op.f('ix_user_username'), table_name='user')
     op.drop_index(op.f('ix_user_token'), table_name='user')
     op.drop_index(op.f('ix_user_name'), table_name='user')

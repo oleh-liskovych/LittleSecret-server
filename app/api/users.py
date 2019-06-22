@@ -101,10 +101,10 @@ def delete_profile_picture():
         to_path = os.path.join(current_app.config['UPLOADS'], abandoned_name)
         os.rename(from_path, to_path)
 
-        # abandoned = AbandonedPicture(path=abandoned_name, owner=g.current_user.id)
-        # g.current_user.delete_picture()
-        # db.session.add(abandoned)
-        # db.session.commit()
+        abandoned = AbandonedPicture(path=abandoned_name, owner=g.current_user.id)
+        g.current_user.delete_picture()
+        db.session.add(abandoned)
+        db.session.commit()
 
     return '', 204
 

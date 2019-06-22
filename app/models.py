@@ -85,7 +85,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     picture = db.Column(db.String(512))
     presence_status = db.Column(db.Enum(PresenceStatus), default=PresenceStatus.unknown)
     in_foreground = db.Column(db.Boolean, nullable=False, default=False)
-    shutdown_on_screen_of = db.Column(db.Boolean, nullable=False, default=False)
+    shutdown_on_screen_off = db.Column(db.Boolean, nullable=False, default=False)
 
     originals = db.relationship('UserPOV', foreign_keys='UserPOV.original_id', backref='original', lazy='dynamic')
     povs = db.relationship('UserPOV', foreign_keys='UserPOV.pov_id', backref='pov', lazy='dynamic')
@@ -133,7 +133,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             'picture': self.picture,
             'last_online': self.last_online.isoformat() + 'Z',
             'status': self.presence_status.name,
-            'shutdown_on_screen_off': self.shutdown_on_screen_of
+            'shutdown_on_screen_off': self.shutdown_on_screen_off
         }
         if include_email:
             data['email'] = self.email
@@ -173,8 +173,8 @@ def load_user(id):
 
 class AbandonedPicture(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    path = db.Column(db.String(512), nullable=False)
-    owner = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    path = db.Column(db.String(512))
+    owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<AbandonedPicture owner_id {}, path {}>'.format(self.owner, self.path)

@@ -16,8 +16,8 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer nB/dlZJfA0AkJDRShZ6XwgzvIuoR5q7C",
-								"type": "text"
+								"type": "text",
+								"value": "Bearer KprEgopdQcTpy5sPxbW3gI+097wNoH1X"
 							}
 						],
 						"body": {
@@ -25,17 +25,17 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "test5",
+									"value": "oleh",
 									"type": "text"
 								},
 								{
 									"key": "name",
-									"value": "Test Name5",
+									"value": "Oleh Liskovych",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "test5@ukr.net",
+									"value": "dannogo@gmail.com",
 									"type": "text"
 								},
 								{
@@ -45,7 +45,7 @@
 								},
 								{
 									"key": "bio",
-									"value": "test bio",
+									"value": "My name is Oleh",
 									"type": "text"
 								},
 								{
@@ -56,18 +56,16 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users",
-							"protocol": "http",
+							"raw": "{{url}}/api/users",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users"
 							]
 						},
-						"description": "## Response:\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 9,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"test3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Test Name3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"test bio\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/images/dog_4.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-19T16:30:21.076969Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure:\n# 404\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}"
+						"description": "## Response:\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 9,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"test3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Test Name3\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"test bio\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/images/1561124834_5fabe1de8fef4a1793dcaa81807e66a7.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-19T16:30:21.076969Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure:\n# 400\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": {  \n        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"Please use a different username\",  \n        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"email\": \"Please use a different email address\"  \n    }  \n}\n\n# Deprecated below:\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": \"Please use a different username\"  \n}"
 					},
 					"response": []
 				},
@@ -78,7 +76,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer nB/dlZJfA0AkJDRShZ6XwgzvIuoR5q7C",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -97,7 +95,7 @@
 								},
 								{
 									"key": "email",
-									"value": "another@ukr.net",
+									"value": "my_new_email@gmail.com",
 									"type": "text"
 								},
 								{
@@ -108,19 +106,17 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/oleh",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/oleh",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
 								"oleh"
 							]
 						},
-						"description": "## Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Jonattan Cormen\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"Multipart 4\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/api/images/dog_4.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}"
+						"description": "## Response\n# Success:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"id\": 4,  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"username\": \"oleh\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Jonattan Cormen\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"bio\": \"Multipart 4\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"picture\": \"http://localhost:5000/images/1561124495_694e2546649a40e78bb748960ca6a5f5.jpg\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"status\": \"unknown\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"shutdown_on_screen_of\": false  \n}\n\n# Failure 400:\n\n{  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"error\": \"Bad Request\",  \n    &nbsp;&nbsp;&nbsp;&nbsp;\"message\": {  \n        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"email\": \"Please use a different email address\"  \n    &nbsp;&nbsp;&nbsp;&nbsp;}  \n}"
 					},
 					"response": []
 				},
@@ -131,7 +127,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer 5LQfUjV4k08zF9zkmScqvXhEqvPeTNL/",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							},
 							{
@@ -145,12 +141,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/oleh",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/oleh",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -171,7 +165,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer  j46tyXEXIves9Wm3oGxcHnPISojjKmdd",
+								"value": "Bearer  {{token}}",
 								"type": "text"
 							},
 							{
@@ -185,18 +179,46 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users",
-							"protocol": "http",
+							"raw": "{{url}}/api/users",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users"
 							]
 						},
 						"description": "{  \n    \"items\": [  \n        {  \n            \"id\": 1,  \n            \"username\": \"john\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 2,  \n            \"username\": \"susan\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 3,  \n            \"username\": \"petro\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T13:34:45.366052Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 4,  \n            \"username\": \"oleh\",  \n            \"name\": \"\",  \n            \"bio\": \"It's my fourth bio\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-16T21:29:29.240166Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 5,  \n            \"username\": \"vasyl\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-18T14:10:49.460416Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        },  \n        {  \n            \"id\": 6,  \n            \"username\": \"dmytro\",  \n            \"name\": \"\",  \n            \"bio\": \"\",  \n            \"picture\": null,  \n            \"last_online\": \"2019-06-18T14:18:01.897751Z\",  \n            \"status\": \"unknown\",  \n            \"shutdown_on_screen_of\": false  \n        }  \n    ],  \n    \"_meta\": {  \n        \"page\": 1,  \n        \"per_page\": 10,  \n        \"total_pages\": 1,  \n        \"total_items\": 6  \n    },  \n    \"_links\": {  \n        \"self\": \"/api/users?page=1&per_page=10\",  \n        \"next\": null,  \n        \"prev\": null  \n    }  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile Picture",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/users/picture",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"picture"
+							]
+						},
+						"description": "# Success:\n\"\""
 					},
 					"response": []
 				}
@@ -207,6 +229,19 @@
 			"item": [
 				{
 					"name": "Get token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b7a28d77-4b38-4352-89d0-0942ab9757af",
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -218,7 +253,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Basic b2xlaDpva29uNGFuaWk=",
+								"value": "Basic b2xlaDoxMTEx",
 								"type": "text"
 							}
 						],
@@ -227,12 +262,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/tokens",
-							"protocol": "http",
+							"raw": "{{url}}/api/tokens",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"tokens"
@@ -249,7 +282,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer  j46tyXEXIves9Wm3oGxcHnPISojjKmdd",
+								"value": "Bearer  {{token}}",
 								"type": "text"
 							}
 						],
@@ -258,12 +291,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/tokens",
-							"protocol": "http",
+							"raw": "{{url}}/api/tokens",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"tokens"
