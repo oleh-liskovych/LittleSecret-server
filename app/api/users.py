@@ -48,24 +48,6 @@ def create_user():
     return response
 
 
-def validate_create_user_form(data):
-    """Returns dictionary of errors"""
-    error_data = {}
-    if 'username' not in data or not data['username'].strip():
-        error_data['username'] = 'Username is required'
-    if 'email' not in data or not data['email'].strip():
-        error_data['email'] = 'Email is required'
-    if 'password' not in data or not data['password']:
-        error_data['password'] = 'Password is required'
-
-    if 'username' not in error_data and User.query.filter_by(username=data['username'].strip()).first():
-        error_data['username'] = 'Please use a different username'
-    if 'email' not in error_data and User.query.filter_by(email=data['email'].strip()).first():
-        error_data['email'] = 'Please use a different email address'
-
-    return error_data
-
-
 @bp.route('/users/<string:username>', methods=['PUT'])
 @token_auth.login_required
 def update_user(username):
@@ -93,7 +75,6 @@ def update_user(username):
 @bp.route('/users/picture', methods=['DELETE'])
 @token_auth.login_required
 def delete_profile_picture():
-    print("loh")
     if g.current_user.picture:
         abandoned_name = "abandoned_" + unique_filename_from(g.current_user.picture)
         print("abandoned_name {}".format(abandoned_name))
@@ -109,6 +90,29 @@ def delete_profile_picture():
     return '', 204
 
 
+# @bp.route('/reset_password/<token>', methods=['GET'])
+# def reset_password(token):
+#     if current_user.is_
+
+
+def validate_create_user_form(data):
+    """Returns dictionary of errors"""
+    error_data = {}
+    if 'username' not in data or not data['username'].strip():
+        error_data['username'] = 'Username is required'
+    if 'email' not in data or not data['email'].strip():
+        error_data['email'] = 'Email is required'
+    if 'password' not in data or not data['password']:
+        error_data['password'] = 'Password is required'
+
+    if 'username' not in error_data and User.query.filter_by(username=data['username'].strip()).first():
+        error_data['username'] = 'Please use a different username'
+    if 'email' not in error_data and User.query.filter_by(email=data['email'].strip()).first():
+        error_data['email'] = 'Please use a different email address'
+
+    return error_data
+
+
 def validate_update_user_form(data, user):
     """Returns dictionary of errors"""
     error_data = {}
@@ -117,5 +121,6 @@ def validate_update_user_form(data, user):
             data['email'].strip() != user.email and \
             User.query.filter_by(email=data['email'].strip()).first():
         error_data['email'] = 'Please use a different email address'
-
     return error_data
+
+

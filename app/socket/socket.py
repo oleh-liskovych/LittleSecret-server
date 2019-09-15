@@ -2,6 +2,7 @@ from flask import render_template, request, session, copy_current_request_contex
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 from threading import Lock
 from app import socketio
+
 # async_mode = None
 
 # socketio = SocketIO(current_app, async_mode=None)
@@ -79,6 +80,7 @@ def send_room_message(message):
 @socketio.on('disconnect_request', namespace='/test')
 def disconnect_request():
     print('disconnect_request')
+
     @copy_current_request_context
     def can_disconnect():
         disconnect()

@@ -3,6 +3,8 @@ import functools
 from pathlib import PurePosixPath
 from datetime import datetime
 import uuid
+from flask_mail import Message
+from app import mail
 
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -32,3 +34,10 @@ def unique_filename_from(filename):
     suffix = PurePosixPath(filename).suffix
     unique_filename = str(int(datetime.utcnow().timestamp())) + "_" + uuid.uuid4().hex + suffix
     return unique_filename
+
+
+def send_email(subject, sender, recipients, text_body, html_body):
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = text_body
+    msg.html = html_body
+    mail.send(msg)
