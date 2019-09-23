@@ -39,6 +39,9 @@ def create_app(config_class=Config):
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
+    from app.socket import bp as socket_bp
+    app.register_blueprint(socket_bp)
+
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:
             auth = None
@@ -73,7 +76,7 @@ def create_app(config_class=Config):
     #             '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
     #         file_handler.setLevel(logging.INFO)
     #         app.logger.info('LittleSecret')
-
+    #
     # socketio.run(app, debug=True)
     return app
 
