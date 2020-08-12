@@ -12,6 +12,7 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_SORT_KEYS = False
+    SSL_REDIRECT = False
 
     LANGUAGES = ['en', 'uk', 'ru']
 
@@ -28,3 +29,25 @@ class Config(object):
     # MAIL_USE_SSL = True  # SSL - 465
 
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
+
+    @staticmethod
+    def init_app(app):
+        pass
+
+
+class HerokuConfig(Config):
+    SSL_REDIRECT = True if os.environ.get('DYNO') else False
+
+    @classmethod
+    def init_app(cls, app):
+        Config.init_app(app)
+
+        # handle reverse proxy server headers
+        from werkzeug.middleware.proxy_fix import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
+        # log to stderr
+        import logging
+        from logging import StreamHandler
+        file_handler = StreamHandler()
+        file_handler.setLevel(logging.INFO)

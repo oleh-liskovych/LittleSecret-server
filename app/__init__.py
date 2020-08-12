@@ -23,6 +23,10 @@ def create_app(config_class=Config):
     app=Flask(__name__)
     app.config.from_object(config_class)
 
+    if app.config['SSL_REDIRECT']:
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
+
     db.init_app(app)
     migrate.init_app(app, db)
     babel.init_app(app)
